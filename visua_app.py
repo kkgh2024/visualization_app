@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-!pip install plotly
+
 import plotly.graph_objs as go
 from sklearn.metrics import confusion_matrix, roc_curve, auc
 from sklearn.model_selection import train_test_split
