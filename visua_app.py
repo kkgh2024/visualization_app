@@ -1,6 +1,5 @@
 import streamlit as st
 import pandas as pd
-
 import plotly.graph_objs as go
 from sklearn.metrics import confusion_matrix, roc_curve, auc
 from sklearn.model_selection import train_test_split
@@ -58,8 +57,62 @@ def correlation_heatmap():
                 font=dict(size=10, color='white')
             )
 
-    # Display the heatmap
+    # Customize the layout
+    heatmap_fig.update_layout(
+        title='Correlation Heatmap',
+    )
+
+ 
+
+    # Display the plot
     st.plotly_chart(heatmap_fig)
+
+    # Display the description text
+    additional_text_1 = """
+    Are our variables correlated?  
+    """
+    additional_text_2 = """
+    The heatmap visualization of the correlation matrix allows for easy interpretation of the relationships between variables in\
+    the dataset. The inclusion of text annotations enhances the readability of the heatmap by providing precise correlation \
+    coefficient values.
+    """
+    st.write(additional_text_1)
+    st.write(additional_text_2)
+    
+    
+def binary_response_distribution():
+    # Calculate the percentage of each response category
+    response_percentages = df1['Survived_1_year'].value_counts() / len(df1)
+
+    # Create a bar plot using Plotly
+    fig = px.bar(
+        x=response_percentages.index,
+        y=response_percentages.values,
+        color=response_percentages.index,
+        labels={'x': 'Survived_1_year', 'y': 'Percentage'},
+        title='Distribution of Binary Response'
+    )
+
+    # Customize colors for the two response categories
+    fig.update_traces(marker_color=['blue', 'red'])
+    fig.update_traces(texttemplate='%{y:.2%}', textposition='outside')
+    # Adjust the width of the bins by changing the bargap
+    fig.update_layout(bargap=0.5)  # You can adjust this value
+
+    # Display the plot
+    st.plotly_chart(fig)
+
+    additional_text_1 = """
+    Is the binary response variable 'Survived_1_year' balanced? 
+    """
+    additional_text_2 = """
+    The plot effectively communicates the distribution of the binary response variable 'Survived_1_year' in the dataset,\
+    providing insights into the proportion of patients who survived after one year of treatment. The use of colors, labels,\
+    and text display enhances the clarity and interpretability of the visualization.
+    """
+    st.write(additional_text_1)
+    st.write(additional_text_2)
+    # Add interpretation text   
 
 def age_bin_survival():
     # Define the age bins
@@ -90,7 +143,26 @@ def age_bin_survival():
 
     # Display the age bin survival bar plot
     st.plotly_chart(age_bin_fig)
+        # Add additional text
+ #   additional_text = """
+#    Generally, the survival rate tends to be higher for patients who are not smokers compared to those who are smokers within the same age group.
+#    Among different age groups, younger patients (e.g., those aged 20-30 years) tend to have higher survival rates compared to older patients (e.g., those aged 60-70 years).
+#    There is a significant difference in survival rates between smokers and non-smokers, particularly in older age groups. For example, in the age group 60-70, the survival rate for non-smokers is substantially higher than that for smokers.
+#    """
 
+#    st.write(additional_text)
+     # Add additional text as three different points
+    additional_text_1 = """
+    How does age and smoking status impact the survival rate?
+    """
+    additional_text_2 = """
+    The barplot  visualizes the survival rate for different age bins, stratified by smoker status. \
+    The plot effectively communicates how survival rates vary across age groups and smoker statuses. 
+    """
+    st.write(additional_text_1)
+    st.write(additional_text_2)
+    
+    
 def drug_survival():
     # Group by drugs and calculate the mean survival rate for each drug
     drug_survivor = df1.groupby(['Treated_with_drugs','Patient_Smoker'])['Survived_1_year'].mean(numeric_only=True).reset_index()
@@ -111,7 +183,54 @@ def drug_survival():
 
     # Display the drug survival bar plot
     st.plotly_chart(drug_fig)
+          # Add additional text as three different points
+    additional_text_1 = """
+    How do various drugs impact the treatment of smokers and non-smokers patients?
+    """
+    additional_text_2 = """
+    This plot effectively communicates how different drugs and smoking status impact the survival rate. \
+    It provides a visual comparison of survival rates across various drug treatments and smoker statuses, \
+    enabling viewers to easily identify trends and patterns in the data. 
+    """
+    st.write(additional_text_1)
+    st.write(additional_text_2)
+def bmi_range_survival():
+    # Create BMI bins
+    bins = [15, 18.5, 24.9, 30, 35, 40, 50]
+    labels = ['Underweight', 'Normal weight', 'Overweight', 'Obesity I', 'Obesity II', 'Obesity III']
+    df1['BMI Range'] = pd.cut(df1['Patient_Body_Mass_Index'], bins=bins, labels=labels)
 
+    # Group by BMI Range and Smoke, calculate mean SurvivalRate
+    grouped = df1.groupby(['BMI Range', 'Patient_Smoker'])['Survived_1_year'].mean().reset_index()
+
+    # Create a bar plot using Plotly
+    fig = px.bar(
+        grouped,
+        x='BMI Range',
+        y='Survived_1_year',
+        color='Patient_Smoker',
+        title='Survival Rate for Different BMI Range',
+        labels={'BMI Range': 'BMI Range', 'Survived_1_year': 'Survival Rate'},
+        color_discrete_sequence=px.colors.qualitative.Set1
+    )
+
+    # Add text annotations with the survival rate percentages
+    fig.update_traces(texttemplate='%{y:.2%}', textposition='outside')
+
+    # Display the BMI Range survival bar plot
+    st.plotly_chart(fig)
+    additional_text_1 = """
+    How does BMI and smoking statue impact the survival rate?
+    """
+    additional_text_2 = """
+    This plot effectively communicates how BMI and smoking status impact the survival rate. \
+    It allows for a visual comparison of survival rates across different BMI ranges and smoker statuses,\
+    providing insights into potential correlations between these factors and survival outcomes.
+    """
+    st.write(additional_text_1)
+    st.write(additional_text_2)
+    # Add interpretation text
+    
 def bmi_range():
     # Create BMI bins
     bins = [15, 18.5, 24.9, 30, 35, 40, 50]
@@ -135,7 +254,16 @@ def bmi_range():
     bmi_fig.update_layout(legend_title='BMI Category')
     # Display the BMI Range scatter plot
     st.plotly_chart(bmi_fig)
-
+    additional_text_1 = """
+    Which are the most effective drugs for each BMI range? 
+    """
+    additional_text_2 = """
+    This plot facilitates the exploration of how different drug treatments and BMI categories are associated with survival rates.\
+    It enables viewers to identify potential trends or patterns in survival outcomes based on drug treatment and BMI range,\
+    contributing to a deeper understanding of the dataset.
+    """
+    st.write(additional_text_1)
+    st.write(additional_text_2)
     
 def confusion_matrix_plot():
     global df1  # Access the global variable df1
@@ -193,7 +321,16 @@ def confusion_matrix_plot():
     )
 # Display the confusion matrix heatmap
     st.plotly_chart(cm_fig)
-    
+    additional_text_1 = """
+    How do we evaluate the performance of our classification model? 
+    """
+    additional_text_2 = """
+    This design effectively demonstrates the process of training a Gradient Boosting Classifier,\
+    evaluating its performance using a confusion matrix,\
+    and visualizing the results to gain insights into the model's predictive capabilities.
+    """
+    st.write(additional_text_1)
+    st.write(additional_text_2)
     
 def roc_curve_plot():
     global df1
@@ -232,7 +369,16 @@ def roc_curve_plot():
 
     # Display the ROC curve plot
     st.plotly_chart(roc_curve_fig)
-
+    additional_text_1 = """
+    How do we evaluate the performance of our classification model? 
+    """
+    additional_text_2 = """
+    This design and implementation allow for a clear visualization of the model's performance in terms of discrimination between\
+    positive and negative classes,\
+    aiding in the assessment of its effectiveness in classification tasks
+    """
+    st.write(additional_text_1)
+    st.write(additional_text_2)
 # Define the Streamlit app
 
 
@@ -240,16 +386,22 @@ def roc_curve_plot():
 def main():
     # Set up the sidebar and main content area
     st.sidebar.title('Navigation')
-    options = ['Correlation Heatmap', 'Age Bin Survival', 'Drug Survival', 'BMI Range', 'Confusion Matrix', 'ROC Curve']
+    options = ['Correlation Heatmap', 'Binary Response Distribution','Age Bin Survival', 'Drug Survival','BMI Range Survival', 'BMI Range', 'Confusion Matrix', 'ROC Curve']
     choice = st.sidebar.radio('Select Visualization:', options)
 
     # Display selected visualization
     if choice == 'Correlation Heatmap':
-        correlation_heatmap()
+        correlation_heatmap() 
+        
+    elif choice == 'Binary Response Distribution':
+        binary_response_distribution()
+        
     elif choice == 'Age Bin Survival':
         age_bin_survival()
     elif choice == 'Drug Survival':
         drug_survival()
+    elif choice == 'BMI Range Survival':
+        bmi_range_survival()    
     elif choice == 'BMI Range':
         bmi_range()
     elif choice == 'Confusion Matrix':
@@ -259,3 +411,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+    
