@@ -69,16 +69,25 @@ def correlation_heatmap():
 
     # Display the description text
     additional_text_1 = """
-    Are our variables correlated?  
+    **Are our variables correlated?**  
     """
     additional_text_2 = """
-    The heatmap visualization of the correlation matrix allows for easy interpretation of the relationships between variables in\
-    the dataset. The inclusion of text annotations enhances the readability of the heatmap by providing precise correlation \
-    coefficient values.
+    In general, the heatmap visualization of the correlation matrix facilitates straightforward interpretation of the\
+    relationships among variables within the dataset. Incorporating text annotations further improves the clarity of\
+    the heatmap by offering exact correlation coefficient values.
+    """
+    additional_text_3 = """
+    **Interpretation**  
+    """
+    additional_text_4 = """
+    The observed correlations are predominantly weak, suggesting that the variables in the dataset exhibit little linear \
+    relationship with each other. Consequently, alternative methods like regression or machine\
+    learning models may prove more suitable for exploring these relationships and predicting outcomes within this dataset.  
     """
     st.write(additional_text_1)
     st.write(additional_text_2)
-    
+    st.write(additional_text_3)
+    st.write(additional_text_4)
     
 def binary_response_distribution():
     # Calculate the percentage of each response category
@@ -103,15 +112,26 @@ def binary_response_distribution():
     st.plotly_chart(fig)
 
     additional_text_1 = """
-    Is the binary response variable 'Survived_1_year' balanced? 
+    **Is the binary response variable 'Survived_1_year' balanced?** 
     """
     additional_text_2 = """
     The plot effectively communicates the distribution of the binary response variable 'Survived_1_year' in the dataset,\
-    providing insights into the proportion of patients who survived after one year of treatment. The use of colors, labels,\
-    and text display enhances the clarity and interpretability of the visualization.
+    offering insights into the proportion of patients who survived after one year of treatment. \
+    The utilization of colors, labels, and textual displays enhances the clarity and interpretability of the visualization.
+    """
+    additional_text_3 = """
+    **interpretation**
+    """
+    additional_text_4 = """
+    The "Survived_1_year" variable demonstrates a balanced distribution, suggesting that both outcomes\
+    (survival and non-survival after one year of treatment) are evenly represented in the dataset. Specifically, \
+    around 63.2% of patients survived after one year, \
+    while approximately 36.8% did not survive. 
     """
     st.write(additional_text_1)
     st.write(additional_text_2)
+    st.write(additional_text_3)
+    st.write(additional_text_4)
     # Add interpretation text   
 
 def age_bin_survival():
@@ -153,15 +173,33 @@ def age_bin_survival():
 #    st.write(additional_text)
      # Add additional text as three different points
     additional_text_1 = """
-    How does age and smoking status impact the survival rate?
+    **How does age and smoking status impact the survival rate?**
     """
     additional_text_2 = """
-    The barplot  visualizes the survival rate for different age bins, stratified by smoker status. \
-    The plot effectively communicates how survival rates vary across age groups and smoker statuses. 
+    The barplot effectively visualizes the survival rate for different age bins, stratified by smoker status. \
+    It communicates how survival rates vary across age groups and smoker statuses 
+    """
+    additional_text_3 = """
+    **Interpretation**
+    """
+    additional_text_4 = """
+    Generally, the survival rate tends to be higher for non-smokers compared to smokers within the same age group.
+    """
+    additional_text_5 = """
+    Among different age groups, younger patients (e.g., aged 20-30 years) typically exhibit higher survival rates\
+    than older patients (e.g., aged 60-70 years).
+    """
+    additional_text_6 = """
+    There is a significant disparity in survival rates between smokers and non-smokers, particularly among older age groups.\
+    For instance, \
+    in the 60-70 age group, non-smokers demonstrate substantially higher survival rates than smokers.
     """
     st.write(additional_text_1)
     st.write(additional_text_2)
-    
+    st.write(additional_text_3)
+    st.write(additional_text_4)
+    st.write(additional_text_5)
+    st.write(additional_text_6)
     
 def drug_survival():
     # Group by drugs and calculate the mean survival rate for each drug
@@ -185,15 +223,25 @@ def drug_survival():
     st.plotly_chart(drug_fig)
           # Add additional text as three different points
     additional_text_1 = """
-    How do various drugs impact the treatment of smokers and non-smokers patients?
+    **How do various drugs impact the treatment of smokers and non-smokers patients?**
     """
     additional_text_2 = """
-    This plot effectively communicates how different drugs and smoking status impact the survival rate. \
-    It provides a visual comparison of survival rates across various drug treatments and smoker statuses, \
-    enabling viewers to easily identify trends and patterns in the data. 
+    Overall, this plot effectively illustrates the impact of different drugs and smoking status on the survival rate.\
+    It offers a visual comparison of survival rates across various drug treatments and smoker statuses,\
+    enabling viewers to readily identify trends and patterns in the data. 
+    """
+    additional_text_3 = """
+    **Interpretaion**
+    """
+    additional_text_4 = """
+    a trend emerges where non-smokers generally demonstrate higher survival rates compared to smokers across various\
+    drug treatments. Additionally, certain drug combinations exhibit higher survival rates compared to others,\
+    irrespective of smoking status.
     """
     st.write(additional_text_1)
     st.write(additional_text_2)
+    st.write(additional_text_3)
+    st.write(additional_text_4)
 def bmi_range_survival():
     # Create BMI bins
     bins = [15, 18.5, 24.9, 30, 35, 40, 50]
@@ -220,15 +268,32 @@ def bmi_range_survival():
     # Display the BMI Range survival bar plot
     st.plotly_chart(fig)
     additional_text_1 = """
-    How does BMI and smoking statue impact the survival rate?
+    **How does BMI and smoking statue impact the survival rate?**
     """
     additional_text_2 = """
-    This plot effectively communicates how BMI and smoking status impact the survival rate. \
-    It allows for a visual comparison of survival rates across different BMI ranges and smoker statuses,\
-    providing insights into potential correlations between these factors and survival outcomes.
+    This plot effectively illustrates the impact of BMI and smoking status on the survival rate. \
+    It enables a visual comparison of survival rates across various BMI ranges and smoker statuses, \
+    offering insights into potential correlations between these factors and survival outcomes.
+    """
+    additional_text_3 = """
+    **Interpretation**
+    """
+    additional_text_4 = """
+    Across all BMI ranges, non-smokers generally demonstrate higher survival rates compared to smokers.
+    """
+    additional_text_5 = """
+    Within each BMI range, there is a consistent trend of decreasing survival rates for smokers compared to non-smokers.
+    """
+    additional_text_6 = """
+    Overall, these results suggest that both BMI and smoking status impact the survival rate, with non-smokers and individuals with\
+    lower BMI generally exhibiting higher survival rates.
     """
     st.write(additional_text_1)
     st.write(additional_text_2)
+    st.write(additional_text_3)
+    st.write(additional_text_4)
+    st.write(additional_text_5)
+    st.write(additional_text_6)
     # Add interpretation text
     
 def bmi_range():
@@ -255,16 +320,41 @@ def bmi_range():
     # Display the BMI Range scatter plot
     st.plotly_chart(bmi_fig)
     additional_text_1 = """
-    Which are the most effective drugs for each BMI range? 
+    **Which are the most effective drugs for each BMI range?** 
     """
     additional_text_2 = """
-    This plot facilitates the exploration of how different drug treatments and BMI categories are associated with survival rates.\
-    It enables viewers to identify potential trends or patterns in survival outcomes based on drug treatment and BMI range,\
+    This plot facilitates exploration of the associations between different drug treatments, BMI categories,\
+    and survival rates. It allows viewers to identify potential trends or patterns in survival outcomes based on drug\
+    treatment and BMI range, \
     contributing to a deeper understanding of the dataset.
     """
+    additional_text_3 = """
+    **Interpretation** 
+    """
+    additional_text_4 = """
+    The survival rates vary across different combinations of drug treatments and BMI ranges,\
+    with some combinations showing higher survival rates. 
+    """
+    additional_text_5 = """
+    For instance, patients treated with 'DX1 DX2 DX3 DX4' in the 'Normal weight' BMI range exhibit a mean survival rate\
+    of 0.978723, indicating a high survival rate
+    """
+    additional_text_6 = """
+     Conversely, certain combinations have lower survival rates, such as patients treated with 'DX6' in the 'Underweight' BMI range,\
+     with a mean survival rate of 0.278008.
+    """
+    additional_text_7 = """
+    Overall, the data provides insights into how different combinations of drug treatments and BMI ranges correlate\
+    with patient survival rates.
+    """
+    
     st.write(additional_text_1)
     st.write(additional_text_2)
-    
+    st.write(additional_text_3)
+    st.write(additional_text_4)
+    st.write(additional_text_5)
+    st.write(additional_text_6)
+    st.write(additional_text_7)
 def confusion_matrix_plot():
     global df1  # Access the global variable df1
     # Define categorical columns
@@ -321,16 +411,33 @@ def confusion_matrix_plot():
     )
 # Display the confusion matrix heatmap
     st.plotly_chart(cm_fig)
+    
     additional_text_1 = """
-    How do we evaluate the performance of our classification model? 
+    **How do we evaluate the performance of our classification model?** 
     """
     additional_text_2 = """
-    This design effectively demonstrates the process of training a Gradient Boosting Classifier,\
+    This design effectively illustrates the process of training a Gradient Boosting Classifier, \
     evaluating its performance using a confusion matrix,\
     and visualizing the results to gain insights into the model's predictive capabilities.
     """
+    additional_text_3 = """
+    **Interpretation** 
+    """
+    additional_text_4 = """
+    The model correctly predicted 2524 instances of survival (True Positives) and 1157 instances of non-survival (True Negatives). However, it also made 553 incorrect predictions of survival (False Positives) \
+    and 383 incorrect predictions of non-survival (False Negatives). 
+    """
+    additional_text_5 = """
+    Overall, the model appears to have higher accuracy, 0.90,  in predicting survival (positive class) than non-survival (negative class).\
+    However, there are still notable misclassifications,\
+    particularly in the form of false positives and false negatives.
+    """
     st.write(additional_text_1)
     st.write(additional_text_2)
+    st.write(additional_text_3)
+    st.write(additional_text_4)
+    st.write(additional_text_5)
+    
     
 def roc_curve_plot():
     global df1
@@ -369,17 +476,33 @@ def roc_curve_plot():
 
     # Display the ROC curve plot
     st.plotly_chart(roc_curve_fig)
+    
     additional_text_1 = """
-    How do we evaluate the performance of our classification model? 
+    **How do we evaluate the performance of our classification model?** 
     """
     additional_text_2 = """
-    This design and implementation allow for a clear visualization of the model's performance in terms of discrimination between\
+    This design and implementation enable clear visualization of the model's performance in discriminating between\
     positive and negative classes,\
-    aiding in the assessment of its effectiveness in classification tasks
+    facilitating the assessment of its effectiveness in classification tasks.
+    
     """
+    additional_text_3 = """
+    **Interpretation** 
+    """
+   
+    additional_text_4 = """
+    By analyzing the ROC curve generated, A model with high performance will have an ROC curve that hugs the
+    upper left corner of the plot, indicating high true positive rate and low false positive rate across various threshold 
+    values. The Area Under the ROC Curve (AUC) provides a single scalar value to summarize the overall performance of the model: the closer the AUC value is to 1, the better the model's \
+    ability to distinguish between positive and negative classes across all possible threshold levels. 
+ 
+    """
+    
     st.write(additional_text_1)
     st.write(additional_text_2)
-# Define the Streamlit app
+    st.write(additional_text_3)
+    st.write(additional_text_4)
+#   # Define the Streamlit app
 
 
 # Define the Streamlit app
@@ -411,5 +534,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-    
